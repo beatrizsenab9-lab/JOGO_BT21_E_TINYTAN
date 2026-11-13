@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você encontrou o Koya!</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: white;
+            background: linear-gradient(135deg, #102b46, #286a88, #a6d7e8);
+        }
+
+        .caixa {
+            width: min(620px, 100%);
+            padding: 36px 28px;
+            text-align: center;
+            border: 3px solid #d9f4ff;
+            border-radius: 24px;
+            background: rgba(9, 34, 57, 0.9);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .caixa img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: #bcecff;
+            font-size: clamp(27px, 5vw, 40px);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .botao {
+            display: none;
+            margin-top: 24px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: #bcecff;
+            color: #102b46;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .botao:hover {
+            background: white;
+        }
+
+        /* Opção padrão: RM */
+        .botao-rm {
+            display: inline-block;
+        }
+
+        /* Exibe o botão correspondente à escolha */
+        #companheiro-jin:target ~ main .botao-rm,
+        #companheiro-suga:target ~ main .botao-rm,
+        #companheiro-jhope:target ~ main .botao-rm,
+        #companheiro-jimin:target ~ main .botao-rm,
+        #companheiro-v:target ~ main .botao-rm,
+        #companheiro-jungkook:target ~ main .botao-rm {
+            display: none;
+        }
+
+        #companheiro-rm:target ~ main .botao-rm,
+        #companheiro-jin:target ~ main .botao-jin,
+        #companheiro-suga:target ~ main .botao-suga,
+        #companheiro-jhope:target ~ main .botao-jhope,
+        #companheiro-jimin:target ~ main .botao-jimin,
+        #companheiro-v:target ~ main .botao-v,
+        #companheiro-jungkook:target ~ main .botao-jungkook {
+            display: inline-block;
+        }
+
+        /* Marcadores invisíveis */
+        .seletor {
+            display: none;
+        }
+
+        .caixa-frase {
+    width: 80%;
+    max-width: 600px;
+    margin: 25px auto;
+    padding: 22px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid #8ddcff;
+    border-radius: 18px;
+    box-shadow: 0 0 18px rgba(100, 200, 255, 0.35);
+    color: white;
+    text-align: center;
+}
+
+.caixa-frase h2 {
+    margin: 0 0 15px;
+    color: #b9eaff;
+    font-size: 20px;
+}
+
+.frase-ingles {
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.frase-traducao {
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.5;
+    color: #e4f5ff;
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Identificação do integrante escolhido -->
+    <span class="seletor" id="companheiro-rm"></span>
+    <span class="seletor" id="companheiro-jin"></span>
+    <span class="seletor" id="companheiro-suga"></span>
+    <span class="seletor" id="companheiro-jhope"></span>
+    <span class="seletor" id="companheiro-jimin"></span>
+    <span class="seletor" id="companheiro-v"></span>
+    <span class="seletor" id="companheiro-jungkook"></span>
+
+    <main class="caixa">
+
+        
+        <img src="koya.png" alt="Mascote Koya">
+
+        <h1>Parabéns! Você encontrou o Koya!</h1>
+
+        <p>Mais um amigo BT21 foi resgatado.</p>
+<div class="caixa-frase">
+
+    <h2>✨ A FRASE QUE VOCÊ DESCOBRIU ✨</h2>
+
+    <p class="frase-ingles">
+        I SWIM THROUGH LIFE AND FIND MYSELF.
+    </p>
+
+    <p class="frase-traducao">
+        "Eu nado pela vida e encontro a mim mesmo."
+    </p>
+
+</div>
+        <p>
+            Continue sua aventura e descubra quem está
+            esperando por você na próxima fase!
+        </p>
+
+        <!-- Continuar conforme o integrante escolhido -->
+
+        <a class="botao botao-rm"
+           href="mapa-koya-concluido.html#escolha-rm">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jin"
+           href="mapa-koya-concluido.html#escolha-jin">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-suga"
+           href="mapa-koya-concluido.html#escolha-suga">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jhope"
+           href="mapa-koya-concluido.html#escolha-jhope">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jimin"
+           href="mapa-koya-concluido.html#escolha-jimin">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-v"
+           href="mapa-koya-concluido.html#escolha-v">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jungkook"
+           href="mapa-koya-concluido.html#escolha-jungkook">
+            Voltar ao mapa
+        </a>
+
+    </main>
+
+</body>
+</html>

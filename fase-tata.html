@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FASE BTS</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0; 
+            overflow: hidden;
+        }
+
+        body {
+            background-image: url('Cenario TATA.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: url('armybomb.png') 16 16, auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .sr-only {
+            display: none;
+        }
+
+        /* Container principal da Fase */
+        .cenario-nevoa {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 1. Brilho padrão da lanterna da ARMY Bomb (Azulado/Neutro) */
+        .cenario-nevoa::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle 90px at var(--x, 50%) var(--y, 50%), rgba(100, 200, 255, 0.4), transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transition: background 0.2s ease;
+        }
+
+        /* 2. A Névoa escura cobrindo a tela */
+        .cenario-nevoa::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 12, 25, 0.94);
+            mask-image: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), transparent 0%, black 100%);
+            -webkit-mask-image: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), transparent 0%, black 100%);
+            z-index: 2;
+            pointer-events: none;
+            transition: mask-image 0.1s ease, -webkit-mask-image 0.1s ease;
+        }
+
+        /* 3. CONTAINER DO TATA (Bloqueado por padrão até completar a frase) */
+        .tata-container {
+            position: absolute;
+            z-index: 10;
+            pointer-events: none; /* Trancado inicialmente */
+        }
+
+        @keyframes liberarTataApos5Segundos {
+            to { pointer-events: auto; }
+        }
+
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) .tata-container {
+            animation: liberarTataApos5Segundos 0.1s linear 5s forwards;
+        }
+
+        /* Imagem do Tata: agora ela própria é o alvo exato do clique */
+        .tata-container img {
+            width: 90px;
+            background: transparent;
+            display: block; 
+            mix-blend-mode: multiply; 
+            filter: brightness(0.02); 
+            opacity: 0.08;            
+            transition: all 0.4s ease;
+            cursor: url('armybomb.png') 16 16, auto;
+            position: relative;
+            z-index: 11;
+        }
+
+        .link-sucesso {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 12;
+            cursor: url('armybomb.png') 16 16, auto;
+        }
+
+        /* Aviso que aparece quando o Tata é encontrado. */
+        .aviso-clique-tata {
+            display: none;
+            position: absolute;
+            top: -65px;
+            left: -80px;
+            width: 280px;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            background: rgba(30, 20, 50, 0.95);
+            border: 2px solid #00bfff;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 13;
+            pointer-events: none;
+        }
+
+        #encontrou-tata:checked ~ .tata-container .aviso-clique-tata {
+            display: block;
+        }
+
+        /* BRILHO VERDE DA ARMY BOMB PERTO DO TATA (Funciona após os 5s da frase completa) */
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) .cenario-nevoa:has(.tata-container img:hover)::before {
+            background: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), rgba(7, 207, 24, 0.9), transparent 70%) !important;
+        }
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) .cenario-nevoa:has(.tata-container img:hover)::after {
+            mask-image: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), transparent 0%, black 100%) !important;
+            -webkit-mask-image: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), transparent 0%, black 100%) !important;
+        }
+
+        /* QUANDO CLICAR NO TATA */
+        #encontrou-tata:checked ~ .tata-container img {
+            mix-blend-mode: normal;
+            filter: brightness(1.2) drop-shadow(0 0 15px #00bfff);
+            opacity: 1;
+            transform: scale(1.15);
+            animation: revelarTata 0.4s ease-in-out;
+            pointer-events: none;
+        }
+
+        #companheiro-rm:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-rm,
+        #companheiro-jin:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-jin,
+        #companheiro-suga:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-suga,
+        #companheiro-jhope:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-jhope,
+        #companheiro-jimin:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-jimin,
+        #companheiro-v:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-v,
+        #companheiro-jungkook:target ~ #encontrou-tata:checked ~ .tata-container .link-sucesso-jungkook {
+            display: block;
+        }
+
+        @keyframes revelarTata {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1.15); }
+        }
+
+        /* 4. PALAVRAS NO CENÁRIO (Cliques restritos estritamente ao texto) */
+        .palavra-wrapper {
+            position: absolute;
+            z-index: 5;
+            display: inline-block;
+            cursor: url('armybomb.png') 16 16, auto;
+        }
+
+        .frase-palavra {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
+            mix-blend-mode: multiply;
+            filter: brightness(0.05);
+            opacity: 0.1;
+            letter-spacing: 1px;
+            cursor: url('armybomb.png') 16 16, auto;
+        }
+
+        /* 5. BARRA DE INVENTÁRIO */
+        .inventario-frase {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(30, 20, 50, 0.85);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .slot-palavra {
+            width: 75px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slot-palavra span {
+            display: none;
+        }
+
+        /* LÓGICA DE COLETA DAS PALAVRAS */
+        #check-1:checked ~ .pos-1 .frase-palavra,
+        #check-2:checked ~ .pos-2 .frase-palavra,
+        #check-3:checked ~ .pos-3 .frase-palavra,
+        #check-4:checked ~ .pos-4 .frase-palavra,
+        #check-5:checked ~ .pos-5 .frase-palavra,
+        #check-6:checked ~ .pos-6 .frase-palavra,
+        #check-7:checked ~ .pos-7 .frase-palavra {
+            display: none;
+        }
+
+        #check-1:checked ~ .pos-1,
+        #check-2:checked ~ .pos-2,
+        #check-3:checked ~ .pos-3,
+        #check-4:checked ~ .pos-4,
+        #check-5:checked ~ .pos-5,
+        #check-6:checked ~ .pos-6,
+        #check-7:checked ~ .pos-7 {
+            pointer-events: none;
+        }
+
+        #check-1:checked ~ .inventario-frase .slot-1,
+        #check-2:checked ~ .inventario-frase .slot-2,
+        #check-3:checked ~ .inventario-frase .slot-3,
+        #check-4:checked ~ .inventario-frase .slot-4,
+        #check-5:checked ~ .inventario-frase .slot-5,
+        #check-6:checked ~ .inventario-frase .slot-6,
+        #check-7:checked ~ .inventario-frase .slot-7 {
+            background: rgba(147, 51, 234, 0.4);
+            border: 1px solid #f6d8ff;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(147, 51, 234, 0.8);
+            transform: scale(1.05);
+        }
+
+        #check-1:checked ~ .inventario-frase .slot-1 span,
+        #check-2:checked ~ .inventario-frase .slot-2 span,
+        #check-3:checked ~ .inventario-frase .slot-3 span,
+        #check-4:checked ~ .inventario-frase .slot-4 span,
+        #check-5:checked ~ .inventario-frase .slot-5 span,
+        #check-6:checked ~ .inventario-frase .slot-6 span,
+        #check-7:checked ~ .inventario-frase .slot-7 span {
+            display: inline;
+        }
+
+        /* EFEITOS DE LUZ DA ARMY BOMB NAS PALAVRAS */
+        .cenario-nevoa:has(.pos-1 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(147, 51, 234, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-2 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(239, 68, 68, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-3 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(234, 179, 8, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-4 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(56, 189, 248, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-5 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(34, 197, 94, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-6 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(244, 114, 182, 0.9), transparent 70%); }
+        .cenario-nevoa:has(.pos-7 .frase-palavra:hover)::before { background: radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(55, 65, 81, 0.95), transparent 70%); }
+
+        /* APRESENTAÇÃO DOS INTEGRANTES */
+        .apresentacao-integrante {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            width: min(420px, calc(100vw - 40px));
+            box-sizing: border-box;
+            padding: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            background: rgba(42, 25, 65, 0.95);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            animation: apresentarIntegrante 5.6s ease forwards;
+        }
+
+        .apresentacao-integrante:target {
+            display: flex;
+        }
+
+        .foto-integrante {
+            width: 105px;
+            height: 125px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .texto-apresentacao {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: Arial, sans-serif;
+            line-height: 1.35;
+        }
+
+        .texto-apresentacao strong {
+            color: #f6d8ff;
+            font-size: 16px;
+        }
+
+        .texto-apresentacao p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .fala-integrante {
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.14);
+            font-style: italic;
+        }
+
+        @keyframes apresentarIntegrante {
+            0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+            10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -55%) scale(0.95); visibility: hidden; }
+        }
+
+        /* APRESENTAÇÃO DE SUCESSO */
+        .apresentacao-sucesso {
+            display: none;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            z-index: 25;
+            align-items: center;
+            gap: 16px;
+            width: min(440px, calc(100vw - 40px));
+            box-sizing: border-box;
+            padding: 16px;
+            border: 2px solid rgba(7, 207, 24, 0.85);
+            border-radius: 20px;
+            background: rgba(42, 25, 65, 0.98);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+        }
+
+        .apresentacao-sucesso img {
+            width: 105px;
+            height: 125px;
+            flex-shrink: 0;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+        }
+
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-rm:target ~ .apresentacao-sucesso-rm,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-jin:target ~ .apresentacao-sucesso-jin,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-suga:target ~ .apresentacao-sucesso-suga,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-jhope:target ~ .apresentacao-sucesso-jhope,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-jimin:target ~ .apresentacao-sucesso-jimin,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-v:target ~ .apresentacao-sucesso-v,
+        body:has(#check-1:checked):has(#check-2:checked):has(#check-3:checked):has(#check-4:checked):has(#check-5:checked):has(#check-6:checked):has(#check-7:checked) #companheiro-jungkook:target ~ .apresentacao-sucesso-jungkook {
+            display: flex;
+            animation: mostrarSucessoIntegrante 5s ease forwards;
+        }
+
+        @keyframes mostrarSucessoIntegrante {
+            0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+            10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -55%) scale(0.95); visibility: hidden; }
+        }
+    </style>
+
+    <script>
+        // Script para posicionar aleatoriamente as palavras e o Tata a cada carregamento da página
+        window.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.pos-aleatoria');
+            const tata = document.querySelector('.tata-container');
+            
+            const maxX = window.innerWidth - 160;
+            const maxY = window.innerHeight - 150;
+
+            // Sorteia posições para as 7 palavras
+            elements.forEach(el => {
+                const randomX = Math.floor(Math.random() * (maxX - 100)) + 50;
+                const randomY = Math.floor(Math.random() * (maxY - 150)) + 80;
+                el.style.left = randomX + 'px';
+                el.style.top = randomY + 'px';
+            });
+
+            // Sorteia uma posição para o Tata
+            if (tata) {
+                const tataX = Math.floor(Math.random() * (maxX - 120)) + 60;
+                const tataY = Math.floor(Math.random() * (maxY - 120)) + 80;
+                tata.style.left = tataX + 'px';
+                tata.style.top = tataY + 'px';
+            }
+        });
+    </script>
+</head>
+<body onmousemove="document.body.style.setProperty('--x', event.clientX + 'px'); document.body.style.setProperty('--y', event.clientY + 'px');">
+    <div class="cenario-nevoa">
+        <!-- Apresentação dos integrantes -->
+        <div class="apresentacao-integrante" id="companheiro-rm">
+            <img class="foto-integrante" src="rm.png" alt="RM">
+            <div class="texto-apresentacao">
+                <strong>RM está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-jin">
+            <img class="foto-integrante" src="Jin(2).png" alt="Jin">
+            <div class="texto-apresentacao">
+                <strong>Jin está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-suga">
+            <img class="foto-integrante" src="Suga(1).png" alt="Suga">
+            <div class="texto-apresentacao">
+                <strong>Suga está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-jhope">
+            <img class="foto-integrante" src="Jhope(1).png" alt="J-Hope">
+            <div class="texto-apresentacao">
+                <strong>J-Hope está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-jimin">
+            <img class="foto-integrante" src="Jimim(1).png" alt="Jimin">
+            <div class="texto-apresentacao">
+                <strong>Jimin está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-v">
+            <img class="foto-integrante" src="V.png" alt="V">
+            <div class="texto-apresentacao">
+                <strong>V está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-integrante" id="companheiro-jungkook">
+            <img class="foto-integrante" src="Jung Kook(1).png" alt="Jung Kook">
+            <div class="texto-apresentacao">
+                <strong>Jung Kook está pronto para começar esta aventura com você!</strong>
+                <p class="fala-integrante">“Vamos começar? Estarei com você durante todo o caminho!”</p>
+            </div>
+        </div>
+
+        <!-- Balões de sucesso -->
+        <div class="apresentacao-sucesso apresentacao-sucesso-rm">
+            <img src="rm.png" alt="RM">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-jin">
+            <img src="Jin(2).png" alt="Jin">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-suga">
+            <img src="Suga(1).png" alt="Suga">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-jhope">
+            <img src="Jhope(1).png" alt="J-Hope">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-jimin">
+            <img src="Jimim(1).png" alt="Jimin">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-v">
+            <img src="V.png" alt="V">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <div class="apresentacao-sucesso apresentacao-sucesso-jungkook">
+            <img src="Jung Kook(1).png" alt="Jungkook">
+            <div class="texto-apresentacao">
+                <strong>Parabéns!</strong>
+                <p class="fala-integrante">“Você achou a frase oculta, agora vamos encontrar o Tata!”</p>
+            </div>
+        </div>
+
+        <!-- Checkboxes de controle -->
+        <input type="checkbox" id="check-1" class="sr-only">
+        <input type="checkbox" id="check-2" class="sr-only">
+        <input type="checkbox" id="check-3" class="sr-only">
+        <input type="checkbox" id="check-4" class="sr-only">
+        <input type="checkbox" id="check-5" class="sr-only">
+        <input type="checkbox" id="check-6" class="sr-only">
+        <input type="checkbox" id="check-7" class="sr-only">
+        <input type="checkbox" id="encontrou-tata" class="sr-only">
+
+        <!-- PALAVRAS NO CENÁRIO (Posicionadas aleatoriamente e clique restrito ao texto) -->
+        <div class="palavra-wrapper pos-aleatoria pos-1"><label for="check-1" class="frase-palavra">EVERY</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-2"><label for="check-2" class="frase-palavra">NEW</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-3"><label for="check-3" class="frase-palavra">BEGINNING</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-4"><label for="check-4" class="frase-palavra">MAKES</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-5"><label for="check-5" class="frase-palavra">OUR</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-6"><label for="check-6" class="frase-palavra">STORY</label></div>
+        <div class="palavra-wrapper pos-aleatoria pos-7"><label for="check-7" class="frase-palavra">SHINE</label></div>
+
+        <!-- CONTAINER DO TATA (Posicionado aleatoriamente) -->
+        <div class="tata-container">
+            <label for="encontrou-tata" style="display:none;"></label>
+            <img src="Tata.png" alt="Tata" onclick="document.getElementById('encontrou-tata').checked = true;">
+
+            <div class="aviso-clique-tata">
+                🎉 Você encontrou o Tata!<br>
+                Clique nele para continuar.
+            </div>
+
+            <a href="sucesso-tata.html#companheiro-rm" class="link-sucesso link-sucesso-rm" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-jin" class="link-sucesso link-sucesso-jin" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-suga" class="link-sucesso link-sucesso-suga" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-jhope" class="link-sucesso link-sucesso-jhope" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-jimin" class="link-sucesso link-sucesso-jimin" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-v" class="link-sucesso link-sucesso-v" title="Clique para continuar"></a>
+            <a href="sucesso-tata.html#companheiro-jungkook" class="link-sucesso link-sucesso-jungkook" title="Clique para continuar"></a>
+        </div>
+
+        <!-- BARRA DE INVENTÁRIO -->
+        <div class="inventario-frase">
+            <div class="slot-palavra slot-1"><span>EVERY</span></div>
+            <div class="slot-palavra slot-2"><span>NEW</span></div>
+            <div class="slot-palavra slot-3"><span>BEGINNING</span></div>
+            <div class="slot-palavra slot-4"><span>MAKES</span></div>
+            <div class="slot-palavra slot-5"><span>OUR</span></div>
+            <div class="slot-palavra slot-6"><span>STORY</span></div>
+            <div class="slot-palavra slot-7"><span>SHINE</span></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você encontrou o RJ!</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #536575;
+            background: linear-gradient(135deg, #ffffff, #eaf5fa, #cbdde8);
+        }
+
+        .caixa {
+            width: min(620px, 100%);
+            padding: 36px 28px;
+            text-align: center;
+            border: 3px solid #ffffff;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: 0 12px 35px rgba(95, 130, 150, 0.22);
+        }
+
+        .caixa img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: #789caf;
+            font-size: clamp(27px, 5vw, 40px);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #536575;
+        }
+
+        .botao {
+            display: none;
+            margin-top: 24px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: #dceef5;
+            color: #496779;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 17px;
+            border: 1px solid #c4dce8;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .botao:hover {
+            background: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* Opção padrão: RM */
+        .botao-rm {
+            display: inline-block;
+        }
+
+        /* Esconde o botão padrão quando outro integrante foi escolhido */
+        #companheiro-jin:target ~ main .botao-rm,
+        #companheiro-suga:target ~ main .botao-rm,
+        #companheiro-jhope:target ~ main .botao-rm,
+        #companheiro-jimin:target ~ main .botao-rm,
+        #companheiro-v:target ~ main .botao-rm,
+        #companheiro-jungkook:target ~ main .botao-rm {
+            display: none;
+        }
+
+        /* Mostra o botão correspondente ao integrante escolhido */
+        #companheiro-rm:target ~ main .botao-rm,
+        #companheiro-jin:target ~ main .botao-jin,
+        #companheiro-suga:target ~ main .botao-suga,
+        #companheiro-jhope:target ~ main .botao-jhope,
+        #companheiro-jimin:target ~ main .botao-jimin,
+        #companheiro-v:target ~ main .botao-v,
+        #companheiro-jungkook:target ~ main .botao-jungkook {
+            display: inline-block;
+        }
+
+        /* Marcadores invisíveis que recebem a escolha do integrante */
+        .seletor {
+            display: none;
+        }
+
+        .caixa-frase {
+            width: 80%;
+            max-width: 600px;
+            margin: 25px auto;
+            padding: 22px;
+            background: rgba(220, 238, 245, 0.55);
+            border: 2px solid #8ddcff;
+            border-radius: 18px;
+            box-shadow: 0 0 18px rgba(100, 170, 200, 0.25);
+            color: #536575;
+            text-align: center;
+        }
+
+        .caixa-frase h2 {
+            margin: 0 0 15px;
+            color: #789caf;
+            font-size: 20px;
+        }
+
+        .frase-ingles {
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #496779;
+        }
+
+        .frase-traducao {
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.5;
+            color: #536575;
+        }
+
+        @media (max-width: 520px) {
+            .caixa {
+                padding: 28px 18px;
+            }
+
+            .caixa-frase {
+                width: 100%;
+                padding: 18px 14px;
+            }
+
+            .frase-ingles {
+                font-size: 18px;
+            }
+
+            .frase-traducao {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Identificação do integrante escolhido na fase -->
+    <span class="seletor" id="companheiro-rm"></span>
+    <span class="seletor" id="companheiro-jin"></span>
+    <span class="seletor" id="companheiro-suga"></span>
+    <span class="seletor" id="companheiro-jhope"></span>
+    <span class="seletor" id="companheiro-jimin"></span>
+    <span class="seletor" id="companheiro-v"></span>
+    <span class="seletor" id="companheiro-jungkook"></span>
+
+    <main class="caixa">
+
+        <img src="RJ.png" alt="Mascote RJ">
+
+        <h1>Parabéns! Você encontrou o RJ!</h1>
+
+        <p>Mais um amigo BT21 foi resgatado.</p>
+
+        <!-- Frase encontrada durante a fase RJ -->
+        <div class="caixa-frase">
+            <h2>✨ A FRASE QUE VOCÊ DESCOBRIU ✨</h2>
+
+            <p class="frase-ingles">
+        NOTHING WITHOUT YOUR LOVE FEELS LIKE HOME.
+    </p>
+
+            <p class="frase-traducao">
+        Nada sem o seu amor parece um lar.
+    </p>
+        </div>
+
+        <p>
+            Continue sua aventura e descubra quem está
+            esperando por você na próxima fase!
+        </p>
+
+        <!-- Voltar ao mapa mantendo o integrante escolhido -->
+        <a class="botao botao-rm"
+           href="mapa-rj-concluido.html#escolha-rm">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jin"
+           href="mapa-rj-concluido.html#escolha-jin">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-suga"
+           href="mapa-rj-concluido.html#escolha-suga">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jhope"
+           href="mapa-rj-concluido.html#escolha-jhope">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jimin"
+           href="mapa-rj-concluido.html#escolha-jimin">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-v"
+           href="mapa-rj-concluido.html#escolha-v">
+            Voltar ao mapa
+        </a>
+
+        <a class="botao botao-jungkook"
+           href="mapa-rj-concluido.html#escolha-jungkook">
+            Voltar ao mapa
+        </a>
+
+    </main>
+
+</body>
+</html>

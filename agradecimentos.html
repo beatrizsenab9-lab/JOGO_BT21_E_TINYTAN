@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimentos | Resgate BT21</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            text-align: center;
+            background:
+                radial-gradient(circle at top, rgba(190, 70, 255, 0.38), transparent 45%),
+                linear-gradient(135deg, #16052e, #35105f 55%, #100c35);
+        }
+
+        .caixa-agradecimentos {
+            width: 100%;
+            max-width: 720px;
+            padding: 38px 28px;
+            border: 2px solid rgba(232, 180, 255, 0.75);
+            border-radius: 24px;
+            background: rgba(24, 13, 49, 0.82);
+            box-shadow: 0 0 28px rgba(210, 115, 255, 0.28);
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            color: #f0c7ff;
+            font-size: clamp(26px, 5vw, 38px);
+            text-shadow: 0 0 16px rgba(224, 151, 255, 0.55);
+        }
+
+        .mensagem {
+            margin: 0 auto 24px;
+            max-width: 570px;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #f4eaff;
+        }
+
+        .nomes {
+            margin: 24px 0;
+            padding: 20px 12px;
+            border-top: 1px solid rgba(240, 199, 255, 0.35);
+            border-bottom: 1px solid rgba(240, 199, 255, 0.35);
+            color: #ffffff;
+            font-size: clamp(17px, 3.5vw, 22px);
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        .aviso {
+            margin: 22px auto 28px;
+            max-width: 570px;
+            color: #d9c8ee;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 13px 25px;
+            border: 2px solid #e8b4ff;
+            border-radius: 30px;
+            background: #6b2c91;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+        }
+
+        .botao:hover {
+            transform: scale(1.05);
+            background: #8540ad;
+            box-shadow: 0 0 20px rgba(232, 180, 255, 0.55);
+        }
+
+        @media (max-width: 480px) {
+            .caixa-agradecimentos {
+                padding: 28px 18px;
+            }
+
+            .mensagem {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="caixa-agradecimentos">
+        <h1>💜 Agradecimentos 💜</h1>
+
+        <p class="mensagem">
+            Obrigada por fazer parte desta aventura pelo universo BT21!
+            Esperamos que você tenha gostado de explorar, encontrar os mascotes
+            e descobrir cada mensagem ao longo do caminho.
+        </p>
+
+        <div class="nomes">
+            Giuliane Tome Machado<br>
+            Carla Beatriz Nery de Sena
+        </div>
+
+        <p class="mensagem">
+            Este jogo foi desenvolvido com finalidade educativa e de
+            entretenimento, sem fins lucrativos.
+        </p>
+
+        <p class="aviso">
+            BT21 e seus personagens pertencem aos respectivos titulares.
+            Este projeto é uma criação de fãs, sem vínculo oficial e sem
+            intenção comercial.
+        </p>
+
+        <a class="botao" href="instrucoes.html">↩ VOLTAR PARA AS INSTRUÇÕES</a>
+    </main>
+</body>
+</html>

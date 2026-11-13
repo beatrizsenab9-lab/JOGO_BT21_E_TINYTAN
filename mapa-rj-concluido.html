@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mapa de Fases - BT21 | RJ concluído</title>
+
+    <style>
+        /* Cursor da ARMY Bomb em toda a página */
+        *, *::before, *::after {
+            cursor: url('armybomb.png') 16 16, auto !important;
+        }
+
+        /* Configuração geral */
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: url('Ídolos e Mascotes no Portal Neon.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 30px 15px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            position: relative;
+        }
+
+        /* Título */
+        h1 {
+            color: #4b247c;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+            margin-bottom: 5px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        /* Subtítulo */
+        p.sub {
+            color: #4b247c;
+            margin-bottom: 30px;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        /* Grade dos cartões */
+        .grade-fases {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 850px;
+            width: 100%;
+        }
+
+        /* Cartões */
+        .cartao-fase {
+            background: rgba(30, 41, 59, 0.85);
+            border: 2px solid #f472b6;
+            border-radius: 15px;
+            padding: 18px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Efeito ao passar o mouse */
+        .cartao-fase:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px #4b247c;
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Títulos dos cartões */
+        .cartao-fase h3 {
+            margin: 8px 0 4px 0;
+            color: #f472b6;
+            font-size: 16px;
+        }
+
+        .cartao-fase p {
+            margin: 0;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        /* Cartão especial ARMY */
+        .cartao-fase.army {
+            border-color: #f472b6;
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.2);
+        }
+
+        .cartao-fase.army h3 {
+            color: #f472b6;
+        }
+
+        .cartao-fase.army:hover {
+            box-shadow: 0 0 25px #f472b6;
+            background: rgba(244, 114, 182, 0.2);
+        }
+
+        /* Fases concluídas */
+        .cartao-fase.concluida {
+            border-color: #86efac;
+            box-shadow: 0 0 15px rgba(134, 239, 172, 0.25);
+            background: rgba(22, 101, 52, 0.78);
+        }
+
+        .cartao-fase.concluida h3 {
+            color: #bbf7d0;
+        }
+
+        /* Fases bloqueadas */
+        .cartao-fase.bloqueada {
+            opacity: 0.55;
+            filter: grayscale(0.75);
+            cursor: not-allowed !important;
+            pointer-events: none;
+        }
+
+        .cartao-fase.bloqueada:hover {
+            transform: none;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            background: rgba(30, 41, 59, 0.85);
+        }
+
+        /* Legenda */
+        .legenda {
+            margin-top: 22px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.78);
+            color: white;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Links alternativos para preservar o integrante escolhido */
+        .fase-rj-integrante {
+            display: none;
+        }
+
+        /* Se não houver integrante selecionado, usa o link padrão */
+        .fase-rj-padrao {
+            display: block;
+        }
+
+        body:has(#escolha-rm:target) .fase-rj-padrao,
+        body:has(#escolha-jin:target) .fase-rj-padrao,
+        body:has(#escolha-suga:target) .fase-rj-padrao,
+        body:has(#escolha-jhope:target) .fase-rj-padrao,
+        body:has(#escolha-jimin:target) .fase-rj-padrao,
+        body:has(#escolha-v:target) .fase-rj-padrao,
+        body:has(#escolha-jungkook:target) .fase-rj-padrao {
+            display: none;
+        }
+
+        body:has(#escolha-rm:target) .fase-rj-rm,
+        body:has(#escolha-jin:target) .fase-rj-jin,
+        body:has(#escolha-suga:target) .fase-rj-suga,
+        body:has(#escolha-jhope:target) .fase-rj-jhope,
+        body:has(#escolha-jimin:target) .fase-rj-jimin,
+        body:has(#escolha-v:target) .fase-rj-v,
+        body:has(#escolha-jungkook:target) .fase-rj-jungkook {
+            display: block;
+        }
+
+        /* Responsividade */
+        @media (max-width: 700px) {
+            .grade-fases {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .cartao-fase {
+                padding: 13px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .grade-fases {
+                grid-template-columns: 1fr;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Identifica qual integrante foi escolhido -->
+    <span id="escolha-rm"></span>
+    <span id="escolha-jin"></span>
+    <span id="escolha-suga"></span>
+    <span id="escolha-jhope"></span>
+    <span id="escolha-jimin"></span>
+    <span id="escolha-v"></span>
+    <span id="escolha-jungkook"></span>
+
+    <h1>🗺️ MAPA DO RESGATE BT21 💜</h1>
+
+    <p class="sub">
+        Você resgatou o RJ! Agora a próxima missão é encontrar o Shooky.
+    </p>
+
+    <div class="grade-fases">
+
+        <!-- FASE 1: KOYA CONCLUÍDO -->
+        <div class="cartao-fase concluida" aria-disabled="true">
+            <h3>FASE 1</h3>
+            <p>(Koya)</p>
+            <p>CONCLUÍDA ✓</p>
+        </div>
+
+        <!-- FASE 2: RJ CONCLUÍDO -->
+        <div class="cartao-fase concluida" aria-disabled="true">
+            <h3>FASE 2</h3>
+            <p>(RJ)</p>
+            <p>CONCLUÍDA ✓</p>
+        </div>
+
+        <!-- FASE 3: SHOOKY DISPONÍVEL -->
+        <a href="fase-shooky.html" class="cartao-fase disponivel fase-rj-padrao">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <!-- Links que preservam o integrante escolhido -->
+        <a href="fase-shooky.html#companheiro-rm"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-rm">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-jin"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-jin">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-suga"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-suga">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-jhope"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-jhope">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-jimin"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-jimin">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-v"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-v">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <a href="fase-shooky.html#companheiro-jungkook"
+           class="cartao-fase disponivel fase-rj-integrante fase-rj-jungkook">
+            <h3>FASE 3</h3>
+            <p>(Shooky)</p>
+            <p>DISPONÍVEL ⭐</p>
+        </a>
+
+        <!-- FASE 4 -->
+        <div class="cartao-fase bloqueada" aria-disabled="true">
+            <h3>FASE 4</h3>
+            <p>(Mang)</p>
+            <p>BLOQUEADA 🔒</p>
+        </div>
+
+        <!-- FASE 5 -->
+        <div class="cartao-fase bloqueada" aria-disabled="true">
+            <h3>FASE 5</h3>
+            <p>(Chimmy)</p>
+            <p>BLOQUEADA 🔒</p>
+        </div>
+
+        <!-- FASE 6 -->
+        <div class="cartao-fase bloqueada" aria-disabled="true">
+            <h3>FASE 6</h3>
+            <p>(Tata)</p>
+            <p>BLOQUEADA 🔒</p>
+        </div>
+
+        <!-- FASE 7 -->
+        <div class="cartao-fase bloqueada" aria-disabled="true">
+            <h3>FASE 7</h3>
+            <p>(Cooky)</p>
+            <p>BLOQUEADA 🔒</p>
+        </div>
+
+        <!-- FASE 8 -->
+        <div class="cartao-fase army bloqueada" aria-disabled="true">
+            <h3>FASE 8</h3>
+            <p>(Van)</p>
+            <p>BLOQUEADA 🔒</p>
+        </div>
+
+    </div>
+
+    <div class="legenda">
+        <strong>Legenda:</strong>
+        🟢 Concluída &nbsp; | &nbsp; ⭐ Disponível &nbsp; | &nbsp; 🔒 Bloqueada
+    </div>
+
+</body>
+</html>

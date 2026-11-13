@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABA DE INSTRUÇÕES</title>
+
+    <style>
+
+        body {
+            background-color: blueviolet;
+            color: #faf5ce;
+            font-family: Cambria, Cochin, Georgia, Times,
+                         'Times New Roman', serif;
+            margin: 0;
+            padding: 30px;
+        }
+
+        /* Títulos */
+        .titulos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            text-align: center;
+        }
+
+        h1  {
+            font-size: 50px;
+            color: #ffcc00;
+            margin: 0 0 25px 0;
+            margin-right: 110px;
+        }
+        h3 {
+            font-size: 50px;
+            color: #ffcc00;
+            margin: 0 0 25px 0;
+        }
+
+        /* Organização das caixas */
+        .conteudo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+       .caixa-instrucoes {
+    background-color: rgba(45, 18, 77, 0.8);
+    border: 3px solid #faf5ce;
+    border-radius: 15px;
+    padding: 30px;
+    width: auto;
+    max-width: 550px;
+    min-height: 500px;
+    font-family: Cambria, Cochin, Georgia, Times,
+                 'Times New Roman', serif;
+    box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.3);
+}
+        .caixa-personagens {
+            background-color: rgba(45, 18, 77, 0.8);
+            border: 3px solid #faf5ce;
+            border-radius: 15px;
+            padding: 27px;
+            width: auto;
+            box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.3);
+        }
+
+        h2 {
+            color: #ff99cc;
+            font-size: 25px;
+            border-bottom: 2px dashed #faf5ce;
+            padding-bottom: 5px;
+        }
+
+         h4 {
+            color: #ff99cc;
+            font-size: 25px;
+            padding-bottom: 5px;
+        }
+
+        ul {
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        /* Esconde os campos de seleção */
+        input[name="personagem"] {
+            display: none;
+        }
+
+        /* Grade dos personagens */
+        .personagens {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+
+        /* Personagens clicáveis */
+        .personagens label {
+            color: #faf5ce;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .personagens label:hover {
+            color: #ffcc00;
+        }
+
+        /* Imagens */
+        .personagem {
+            height: 150px;
+            width: 110px;
+            border: 2px solid #faf5ce;
+            border-radius: 10px;
+            background-image: url('personagens.png');
+            background-size: 300% 300%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            margin-bottom: 5px;
+            transition: 0.3s;
+        }
+
+        .personagem:hover {
+            border-color: #ffcc00;
+            transform: scale(1.04);
+        }
+
+        /* Primeira linha */
+        .rm {
+            background-position: 0% 0%;
+        }
+
+        .jin {
+            background-position: 50% 0%;
+        }
+
+        .suga {
+            background-position: 100% 0%;
+        }
+
+        /* Segunda linha */
+        .jhope {
+            background-position: 0% 50%;
+        }
+
+        .jimin {
+            background-position: 50% 50%;
+        }
+
+        .v {
+            background-position: 100% 50%;
+        }
+
+        /* Terceira linha */
+        .jungkook {
+            background-position: 0% 100%;
+        }
+
+        /* Destaque do personagem selecionado */
+        #rm:checked ~ .conteudo .personagens label[for="rm"] .personagem,
+        #jin:checked ~ .conteudo .personagens label[for="jin"] .personagem,
+        #suga:checked ~ .conteudo .personagens label[for="suga"] .personagem,
+        #jhope:checked ~ .conteudo .personagens label[for="jhope"] .personagem,
+        #jimin:checked ~ .conteudo .personagens label[for="jimin"] .personagem,
+        #v:checked ~ .conteudo .personagens label[for="v"] .personagem,
+        #jungkook:checked ~ .conteudo .personagens label[for="jungkook"] .personagem {
+            border: 4px solid #ffcc00;
+            box-shadow: 0 0 15px #ffcc00;
+        }
+
+        /* Área dos botões */
+        .acoes {
+            text-align: center;
+        }
+
+        /* Estilo dos botões */
+        .acoes a {
+            display: none;
+            background-color: #ffcc00;
+            color: #4b247c;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 40px auto;
+            width: fit-content;
+            font-size: 22px;
+            transition: 0.3s;
+        }
+
+        .acoes a:hover {
+            background-color: #faf5ce;
+            color: #1a0b2e;
+            box-shadow: 0px 0px 15px #faf5ce;
+        }
+
+        /* Mostra o botão do personagem escolhido */
+        #rm:checked ~ .acoes .iniciar-rm,
+        #jin:checked ~ .acoes .iniciar-jin,
+        #suga:checked ~ .acoes .iniciar-suga,
+        #jhope:checked ~ .acoes .iniciar-jhope,
+        #jimin:checked ~ .acoes .iniciar-jimin,
+        #v:checked ~ .acoes .iniciar-v,
+        #jungkook:checked ~ .acoes .iniciar-jungkook {
+            display: block;
+        }
+
+        /* Telas menores */
+        @media (max-width: 900px) {
+
+            .titulos,
+            .conteudo {
+                grid-template-columns: 1fr;
+            }
+
+            h1, h3 {
+                font-size: 35px;
+                text-align: center;
+            }
+
+        }
+
+        
+/* Área do modo aleatório */
+.sorteio {
+    text-align: center;
+    margin-top: 25px;
+}
+
+/* Botão aleatório */
+.botao-aleatorio {
+    display: inline-block;
+    background-color: #ff99cc;
+    color: #4b247c;
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.botao-aleatorio:hover {
+    background-color: #faf5ce;
+    transform: scale(1.05);
+}
+
+/* Área da surpresa */
+.surpresa {
+    display: none;
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 300px;
+    background-color: rgba(45, 18, 77, 0.9);
+    border: 3px solid #ffcc00;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Mostra a surpresa ao clicar */
+#modo-surpresa:target {
+    display: block;
+}
+
+/* Animação de entrada */
+#modo-surpresa:target .personagem-surpresa {
+    animation: aparecer 1s ease;
+}
+
+@keyframes aparecer {
+    0% {
+        transform: scale(0.2) rotate(-180deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.personagem-surpresa {
+    width: 110px;
+    height: 150px;
+    margin: 15px auto;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    background-image: url('personagens.png');
+    background-size: 300% 300%;
+    background-position: 0% 0%;
+}
+
+/* Área do modo surpresa */
+.sorteio {
+    text-align: center;
+    margin: 35px auto;
+}
+
+/* Botão aleatório */
+.botao-aleatorio {
+    display: inline-block;
+    background-color: #ff99cc;
+    color: #4b247c;
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    margin: 8px;
+}
+
+.botao-aleatorio:hover {
+    background-color: #faf5ce;
+    transform: scale(1.05);
+}
+
+/* Esconde os resultados */
+.resultado {
+    display: none;
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 350px;
+    background-color: rgba(45, 18, 77, 0.9);
+    border: 3px solid #ffcc00;
+    border-radius: 15px;
+}
+
+/* Mostra o resultado escolhido */
+.resultado:target {
+    display: block;
+}
+
+/* Imagem da surpresa */
+.imagem-surpresa {
+    width: 110px;
+    height: 150px;
+    margin: 15px auto;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    background-image: url('personagens.png');
+    background-size: 300% 300%;
+    animation: revelar 0.8s ease;
+}
+
+@keyframes revelar {
+    from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Posições das imagens */
+.surpresa-rm {
+    background-position: 0% 0%;
+}
+
+.surpresa-jin {
+    background-position: 50% 0%;
+}
+
+.surpresa-suga {
+    background-position: 100% 0%;
+}
+
+.surpresa-jhope {
+    background-position: 0% 50%;
+}
+
+.surpresa-jimin {
+    background-position: 50% 50%;
+}
+
+.surpresa-v {
+    background-position: 100% 50%;
+}
+
+.surpresa-jungkook {
+    background-position: 0% 100%;
+}
+
+.resultado h2 {
+    text-align: center;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Opções de personagens -->
+    <input type="radio" name="personagem" id="rm">
+    <input type="radio" name="personagem" id="jin">
+    <input type="radio" name="personagem" id="suga">
+    <input type="radio" name="personagem" id="jhope">
+    <input type="radio" name="personagem" id="jimin">
+    <input type="radio" name="personagem" id="v">
+    <input type="radio" name="personagem" id="jungkook">
+
+    <!-- Títulos -->
+    <div class="titulos">
+        <h1>Instruções do Jogo</h1>
+        <h3>Personagens</h3>
+    </div>
+
+    <div class="conteudo">
+
+        <!-- Caixa de instruções -->
+        <div class="caixa-instrucoes">
+
+            <h2>💜 Missão: Resgate aos Mascotes BT21</h2>
+
+            <p>
+                Uma névoa misteriosa encobriu o universo dos BT21
+                e os mascotes se perderam! Com a ajuda da sua
+                <strong>ARMY Bomb</strong> e das cores oficiais
+                de cada personagem, você precisa desbravar as
+                páginas de exploração para encontrá-los a tempo.
+            </p>
+           
+
+            <h2>📋 Regras de Sobrevivência na Névoa:</h2>
+
+            <ul>
+                <li>
+                    <strong>Escolha do Companheiro:</strong>
+                    Selecione seu integrante favorito para iniciar a exploração. Ele guiará você e aparecerá durante toda a jornada de resgate das palavras e dos mascotes!
+                </li>
+
+                <li>
+                    <strong>O Poder da ARMY Bomb:</strong>
+                    Use o cursor da sua ARMYBOMB para iluminar a névoa escura do cenário e revelar as palavras ocultas e os mascotes perdidos, ela irá piscar colorido levando em conta sua zona de proximidade.
+                </li>
+
+                <li>
+                    <strong>A Prova da Frase Oculta:</strong>
+                    Encontre e clique nas palavras na ordem correta para preencher o inventário. Ao completar a frase, o mascote será totalmente revelado.
+                </li>
+
+                <li>
+                    <strong>Resgate Concluído:</strong>
+                    Clique no mascote resgatado para avançar para a tela de parabéns, descobrir a tradução da frase e retornar ao mapa para liberar a próxima fase!
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Caixa de personagens -->
+        <div class="caixa-personagens">
+
+            <h4>Selecione um personagem:</h4>
+
+            <div class="personagens">
+
+                <label for="rm">
+                    <div class="personagem rm"></div>
+                    RM
+                </label>
+
+                <label for="jin">
+                    <div class="personagem jin"></div>
+                    Jin
+                </label>
+
+                <label for="suga">
+                    <div class="personagem suga"></div>
+                    Suga
+                </label>
+
+                <label for="jhope">
+                    <div class="personagem jhope"></div>
+                    J-Hope
+                </label>
+
+                <label for="jimin">
+                    <div class="personagem jimin"></div>
+                    Jimin
+                </label>
+
+                <label for="v">
+                    <div class="personagem v"></div>
+                    V
+                </label>
+
+                <label for="jungkook">
+                    <div class="personagem jungkook"></div>
+                    Jung Kook
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   <div class="acoes">
+
+    <a href="mapa-inicial.html#escolha-rm" class="iniciar-rm">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-jin" class="iniciar-jin">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-suga" class="iniciar-suga">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-jhope" class="iniciar-jhope">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-jimin" class="iniciar-jimin">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-v" class="iniciar-v">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+    <a href="mapa-inicial.html#escolha-jungkook" class="iniciar-jungkook">
+        INICIAR EXPLORAÇÃO 🚀
+    </a>
+
+</div>
+
+
+<!-- MODO ALEATÓRIO -->
+<div class="sorteio">
+
+    <h2>🎲 Não sabe quem escolher?</h2>
+
+    <p>Deixe o destino escolher seu integrante!</p>
+
+    <a href="#surpresa-rm" class="botao-aleatorio">
+        🎲 ALEATÓRIO
+    </a>
+
+    <!-- RESULTADO RM -->
+    <div class="resultado" id="surpresa-rm">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-rm"></div>
+        <h2>RM!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-rm" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO JIN -->
+    <div class="resultado" id="surpresa-jin">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-jin"></div>
+        <h2>JIN!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-jin" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO SUGA -->
+    <div class="resultado" id="surpresa-suga">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-suga"></div>
+        <h2>SUGA!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-suga" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO J-HOPE -->
+    <div class="resultado" id="surpresa-jhope">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-jhope"></div>
+        <h2>J-HOPE!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-jhope" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO JIMIN -->
+    <div class="resultado" id="surpresa-jimin">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-jimin"></div>
+        <h2>JIMIN!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-jimin" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO V -->
+    <div class="resultado" id="surpresa-v">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-v"></div>
+        <h2>V!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-v" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- RESULTADO JUNG KOOK -->
+    <div class="resultado" id="surpresa-jungkook">
+        <h2>Sua surpresa é...</h2>
+        <div class="imagem-surpresa surpresa-jungkook"></div>
+        <h2>JUNG KOOK!</h2>
+        <p>Prepare-se para sua aventura!</p>
+        <a href="mapa-inicial.html#escolha-jungkook" class="botao-aleatorio">
+            INICIAR EXPLORAÇÃO 🚀
+        </a>
+        <a href="#outras-surpresas" class="botao-aleatorio">
+            TENTAR NOVAMENTE 🔄
+        </a>
+    </div>
+
+    <!-- OPÇÕES PARA TENTAR NOVAMENTE -->
+    <div id="outras-surpresas" class="resultado">
+        <h2>💜 Escolha uma nova surpresa!</h2>
+
+        <a href="#surpresa-rm" class="botao-aleatorio">RM</a>
+        <a href="#surpresa-jin" class="botao-aleatorio">JIN</a>
+        <a href="#surpresa-suga" class="botao-aleatorio">SUGA</a>
+        <a href="#surpresa-jhope" class="botao-aleatorio">J-HOPE</a>
+        <a href="#surpresa-jimin" class="botao-aleatorio">JIMIN</a>
+        <a href="#surpresa-v" class="botao-aleatorio">V</a>
+        <a href="#surpresa-jungkook" class="botao-aleatorio">JUNG KOOK</a>
+    </div>
+
+</div>
+
+
+</div>
+
+</body>
+</html>
