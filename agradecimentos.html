@@ -96,7 +96,66 @@
                 font-size: 15px;
             }
         }
-    </style>
+    
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== AGRADECIMENTOS RESPONSIVOS ===== */
+@media (max-width: 600px) {
+    body {
+        padding: 16px 12px;
+    }
+    .caixa-agradecimentos {
+        padding: 26px 17px;
+        border-radius: 18px;
+    }
+    .mensagem {
+        font-size: 16px;
+    }
+    .nomes {
+        font-size: 17px;
+        overflow-wrap: anywhere;
+    }
+    .aviso {
+        font-size: 13px;
+    }
+    .botao {
+        display: inline-block;
+        max-width: 100%;
+        padding: 12px 18px;
+    }
+}
+
+</style>
 </head>
 <body>
     <main class="caixa-agradecimentos">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <title>JOGO BTS</title>
     </head>
     <body>
@@ -50,7 +51,97 @@ div:hover {
 }
 
            
-        </style>
+        
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== AJUSTE DO BOTAO INICIAR ===== */
+.botao div {
+    width: 370px;
+    min-height: 70px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+/* ===== CAPA RESPONSIVA ===== */
+html, body {
+    min-height: 100%;
+}
+body {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    background-size: cover;
+    background-position: center;
+    padding: 24px 16px;
+    box-sizing: border-box;
+}
+h1 {
+    max-width: 100%;
+    font-size: clamp(52px, 15vw, 100px) !important;
+    margin: clamp(35px, 12vh, 125px) 0 0 clamp(0px, 8vw, 200px) !important;
+}
+a div, body > a div, div {
+    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
+}
+@media (max-width: 600px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    h1 {
+        margin: 0 0 32px 0 !important;
+        font-size: clamp(58px, 18vw, 90px) !important;
+    }
+    a {
+        font-size: clamp(22px, 7vw, 34px) !important;
+    }
+    a div, body > a div, div {
+        width: min(290px, calc(100vw - 40px));
+        height: auto;
+        min-height: 58px;
+        margin: 0 !important;
+        padding: 10px 12px;
+        text-align: center;
+    }
+}
+
+</style>
 
            <h1>BTS</h1>
            <a href="instrucoes.html" class="botao"><div>

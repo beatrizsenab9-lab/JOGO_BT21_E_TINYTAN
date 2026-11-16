@@ -62,7 +62,7 @@
             background-color: rgba(45, 18, 77, 0.8);
             border: 3px solid #faf5ce;
             border-radius: 15px;
-            padding: 27px;
+            padding: 20px;
             width: auto;
             box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.3);
         }
@@ -122,7 +122,7 @@
             width: 110px;
             border: 2px solid #faf5ce;
             border-radius: 10px;
-            background-image: url('personagens.png');
+            background-image: url('personagens.jpeg');
             background-size: 300% 300%;
             background-repeat: no-repeat;
             overflow: hidden;
@@ -296,7 +296,7 @@
     margin: 15px auto;
     border: 3px solid #ffcc00;
     border-radius: 10px;
-    background-image: url('personagens.png');
+    background-image: url('personagens.jpeg');
     background-size: 300% 300%;
     background-position: 0% 0%;
 }
@@ -349,7 +349,7 @@
     margin: 15px auto;
     border: 3px solid #ffcc00;
     border-radius: 10px;
-    background-image: url('personagens.png');
+    background-image: url('personagens.jpeg');
     background-size: 300% 300%;
     animation: revelar 0.8s ease;
 }
@@ -400,7 +400,98 @@
 }
 
 
-    </style>
+    
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== INSTRUÇÕES E SELEÇÃO RESPONSIVAS ===== */
+@media (max-width: 900px) {
+    body {
+        padding: 22px 14px;
+    }
+    .titulos, .conteudo {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 18px;
+    }
+    .titulos h1, .titulos h3, h1, h3 {
+        margin-right: 0;
+        text-align: center;
+    }
+    .caixa-instrucoes, .caixa-personagens {
+        width: 100%;
+        max-width: none;
+        min-height: 0;
+        box-sizing: border-box;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding: 16px 12px;
+    }
+    .caixa-instrucoes, .caixa-personagens {
+        padding: 18px 14px;
+    }
+    ul {
+        padding-left: 22px;
+        font-size: 16px;
+    }
+    .personagens {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+    .personagens label {
+        font-size: 15px;
+    }
+    .personagem {
+        width: min(100%, 125px);
+        height: 135px;
+    }
+    .acoes a, .acoes label, .botao-aleatorio {
+        display: inline-block;
+        max-width: 100%;
+        padding: 12px 16px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .resultado {
+        max-width: 100%;
+    }
+    .imagem-surpresa {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+</style>
 </head>
 
 <body>
@@ -435,29 +526,43 @@
                 páginas de exploração para encontrá-los a tempo.
             </p>
            
+            <h2>🎯 Objetivo da Missão</h2>
+            
+
+    <p>
+        Resgatar todos os mascotes BT21 que estão perdidos na névoa,
+        utilizando atenção, escolhas corretas e palavras de incentivo.
+    </p>
 
             <h2>📋 Regras de Sobrevivência na Névoa:</h2>
 
             <ul>
+
                 <li>
-                    <strong>Escolha do Companheiro:</strong>
-                    Selecione seu integrante favorito para iniciar a exploração. Ele guiará você e aparecerá durante toda a jornada de resgate das palavras e dos mascotes!
+                    <strong>Escolha do Caminho:</strong>
+                    Escolha seu integrante favorito para iniciar
+                    a exploração.
                 </li>
 
                 <li>
-                    <strong>O Poder da ARMY Bomb:</strong>
-                    Use o cursor da sua ARMYBOMB para iluminar a névoa escura do cenário e revelar as palavras ocultas e os mascotes perdidos, ela irá piscar colorido levando em conta sua zona de proximidade.
+                    <strong>A Prova das Palavras de Incentivo:</strong>
+                    Ao encontrar um mascote na névoa, você precisará
+                    decidir se vai resgatá-lo usando palavras
+                    de incentivo.
+
+                    <br>
+
+                    ⚠️ <em>Atenção:</em>
+                    Se optar por não usar o incentivo, você perderá
+                    o mascote e será obrigado a refazer a fase!
                 </li>
 
                 <li>
-                    <strong>A Prova da Frase Oculta:</strong>
-                    Encontre e clique nas palavras na ordem correta para preencher o inventário. Ao completar a frase, o mascote será totalmente revelado.
+                    <strong>Uso da ARMY Bomb:</strong>
+                    O brilho da ARMY Bomb guiará suas decisões
+                    de navegação pelas páginas.
                 </li>
 
-                <li>
-                    <strong>Resgate Concluído:</strong>
-                    Clique no mascote resgatado para avançar para a tela de parabéns, descobrir a tradução da frase e retornar ao mapa para liberar a próxima fase!
-                </li>
             </ul>
 
         </div>
