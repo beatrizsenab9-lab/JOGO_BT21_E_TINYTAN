@@ -152,7 +152,100 @@
                 font-size: 15px;
             }
         }
-    </style>
+    
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== ADAPTAÇÃO PARA TELAS PEQUENAS ===== */
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+.caixa {
+    margin: auto;
+}
+.caixa img {
+    max-width: min(150px, 35vw);
+    height: auto;
+}
+.caixa-frase {
+    width: 100%;
+}
+@media (max-width: 600px) {
+    body {
+        padding: 14px !important;
+    }
+    .caixa {
+        width: 100%;
+        padding: 24px 16px;
+        border-radius: 18px;
+    }
+    .caixa img {
+        width: clamp(90px, 28vw, 130px);
+        height: auto;
+    }
+    h1 {
+        font-size: clamp(24px, 7vw, 32px) !important;
+        line-height: 1.2;
+    }
+    p {
+        font-size: 16px;
+    }
+    .caixa-frase {
+        margin: 18px auto;
+        padding: 16px 12px;
+    }
+    .caixa-frase h2 {
+        font-size: 17px;
+    }
+    .frase-ingles {
+        font-size: 17px;
+        letter-spacing: 0.2px;
+        overflow-wrap: anywhere;
+    }
+    .frase-traducao {
+        font-size: 15px;
+    }
+    .botao {
+        display: inline-block;
+        max-width: 100%;
+        padding: 13px 22px;
+        font-size: 16px;
+    }
+}
+
+</style>
 </head>
 
 <body>

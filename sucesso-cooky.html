@@ -20,7 +20,7 @@
             padding: 24px;
             font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
-            background: linear-gradient(135deg, #dd489f, #f709a7, #dd489f);
+            background: linear-gradient(135deg, #102b46, #286a88, #a6d7e8);
         }
 
         .caixa {
@@ -29,7 +29,7 @@
             text-align: center;
             border: 3px solid #d9f4ff;
             border-radius: 24px;
-            background: rgba(226, 81, 195, 0.9);
+            background: rgba(9, 34, 57, 0.9);
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
@@ -129,7 +129,100 @@
     line-height: 1.5;
     color: #e4f5ff;
 }
-    </style>
+    
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== ADAPTAÇÃO PARA TELAS PEQUENAS ===== */
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+.caixa {
+    margin: auto;
+}
+.caixa img {
+    max-width: min(150px, 35vw);
+    height: auto;
+}
+.caixa-frase {
+    width: 100%;
+}
+@media (max-width: 600px) {
+    body {
+        padding: 14px !important;
+    }
+    .caixa {
+        width: 100%;
+        padding: 24px 16px;
+        border-radius: 18px;
+    }
+    .caixa img {
+        width: clamp(90px, 28vw, 130px);
+        height: auto;
+    }
+    h1 {
+        font-size: clamp(24px, 7vw, 32px) !important;
+        line-height: 1.2;
+    }
+    p {
+        font-size: 16px;
+    }
+    .caixa-frase {
+        margin: 18px auto;
+        padding: 16px 12px;
+    }
+    .caixa-frase h2 {
+        font-size: 17px;
+    }
+    .frase-ingles {
+        font-size: 17px;
+        letter-spacing: 0.2px;
+        overflow-wrap: anywhere;
+    }
+    .frase-traducao {
+        font-size: 15px;
+    }
+    .botao {
+        display: inline-block;
+        max-width: 100%;
+        padding: 13px 22px;
+        font-size: 16px;
+    }
+}
+
+</style>
 </head>
 
 <body>

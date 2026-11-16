@@ -197,7 +197,91 @@
                 max-width: 250px;
             }
         }
-    </style>
+    
+
+/* ===== ADAPTAÇÃO RESPONSIVA PARA CELULARES E TABLETS ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    max-width: 100%;
+}
+a, button, label, input {
+    touch-action: manipulation;
+}
+@media (max-width: 900px) {
+    body {
+        max-width: 100%;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    h1 {
+        font-size: clamp(25px, 7vw, 34px) !important;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+    h2, h3, h4 {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ===== MAPAS RESPONSIVOS ===== */
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+}
+.grade-fases {
+    width: min(100%, 850px);
+    box-sizing: border-box;
+}
+.cartao-fase {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+    body {
+        padding: 24px 12px !important;
+        justify-content: flex-start;
+    }
+    .grade-fases {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        max-width: 520px;
+    }
+    .cartao-fase {
+        padding: 13px 9px;
+        border-radius: 12px;
+    }
+    .cartao-fase img {
+        max-width: 100%;
+        height: auto;
+    }
+    .sub {
+        margin-bottom: 20px;
+        line-height: 1.45;
+    }
+    .legenda {
+        max-width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 360px) {
+    .grade-fases {
+        gap: 8px !important;
+    }
+    .cartao-fase {
+        padding: 10px 6px;
+        font-size: 13px;
+    }
+}
+
+</style>
 </head>
 
 <body>
